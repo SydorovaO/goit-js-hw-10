@@ -1,2 +1,0 @@
-!function(){var t;(t="https://api.thecatapi.com/v1/breeds?api_key=".concat("live_WMvtxePVKRXBjZsjxYFtFlOWqFz0gkyI0mBmoW9aNYlRdNtrxNB85pKa8M2IFrbP"),fetch(t).then((function(t){if(!t.ok)throw new Error("No data");return t.json()}))).then((function(t){return function(t){var e=document.querySelector(".breed-select");return t.forEach((function(t){var n=document.createElement("option");n.value=t.id,n.textContent=t.name,e.appendChild(n)})),t}(t)})).catch((function(t){return console.error(t)}))}();
-//# sourceMappingURL=index.49c1eac1.js.map
