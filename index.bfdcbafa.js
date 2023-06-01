@@ -1,0 +1,2 @@
+fetch("https://api.thecatapi.com/v1/breeds?api_key=live_WMvtxePVKRXBjZsjxYFtFlOWqFz0gkyI0mBmoW9aNYlRdNtrxNB85pKa8M2IFrbP").then((e=>{if(!e.ok)throw new Error("No data");return e.json()})).then((e=>function(e){const t=document.querySelector(".breed-select");return e.forEach((e=>{const o=document.createElement("option");o.value=e.id,o.textContent=e.name,t.appendChild(o)})),e}(e))).catch((e=>console.error(e)));
+//# sourceMappingURL=index.bfdcbafa.js.map
