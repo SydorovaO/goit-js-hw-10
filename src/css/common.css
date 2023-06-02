@@ -1,4 +1,7 @@
 /* .breed-select{} */
+.hidden {
+  display: none;
+}
 
 .loader {
   font-size: 25px;

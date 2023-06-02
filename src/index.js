@@ -1,6 +1,6 @@
 import { fetchBreeds, fetchCatByBreed } from './js/cat-api';
-import Notiflix from 'notiflix';
 import SlimSelect from 'slim-select';
+import Notiflix from 'notiflix';
 
 const refs = {
   select: document.querySelector('.breed-select'),
@@ -10,9 +10,8 @@ const refs = {
 };
 const { select, catInfo, loader, error } = refs;
 
-// select.style.display = 'none';
-// loader.style.display = 'block';
-// error.style.display = 'none';
+select.style.display = 'none';
+error.classList.add('hidden');
 
 fetchBreeds()
   .then(breeds => fillSelect(breeds))
@@ -20,10 +19,12 @@ fetchBreeds()
 
 function fillSelect(breeds) {
   select.innerHTML = '';
-  //   loader.style.display = 'none';
+
+  loader.style.display = 'none';
   const catsMarkup = createCatsMarkup(breeds);
   select.insertAdjacentHTML('beforeend', catsMarkup);
-  //   select.style.display = 'block';
+
+  select.style.display = 'block';
 }
 
 function createCatsMarkup(data) {
@@ -35,6 +36,7 @@ function createCatsMarkup(data) {
 }
 
 function onError(err) {
+  loader.style.display = 'none';
   Notiflix.Notify.failure(
     'Oops! Something went wrong! Try reloading the page!'
   );
@@ -43,14 +45,12 @@ function onError(err) {
 // ----------------------------------------------------------
 select.addEventListener('change', e => {
   catInfo.innerHTML = '';
-  //   loader.style.display = 'block';
+  loader.style.display = 'block';
   const breedId = select.value;
 
-  console.log(breedId);
   fetchCatByBreed(breedId)
     .then(cats => {
-      console.log(cats);
-      //   loader.style.display = 'none';
+      loader.style.display = 'none';
 
       const catMarkup = createCatMarkup(cats);
       catInfo.insertAdjacentHTML('beforeend', catMarkup);
