@@ -1,0 +1,2 @@
+.breed-select{width:200px;height:30px;text-align:center;background-color:#bc8f8f;border:2px solid #000;margin-bottom:30px;font-size:16px}.cat-info{width:500px}.title{color:#bc8f8f;-webkit-text-stroke:1px black}.hidden{display:none}.loader{color:#000;font-family:Arial,Helvetica,sans-serif;font-size:25px;font-weight:400;display:block;position:relative}.loader:after{content:"";height:4px;width:0%;background:#ff3d00;animation:lineGrow 5s linear infinite;display:block}@keyframes lineGrow{to{width:100%}}
+/*# sourceMappingURL=index.9dcda107.css.map */
