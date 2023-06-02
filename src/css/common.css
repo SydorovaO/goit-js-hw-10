@@ -1,4 +1,17 @@
-/* .breed-select{} */
+.breed-select {
+  width: 200px;
+  height: 30px;
+  text-align: center;
+  border: 2px solid black;
+  font-size: 16px;
+  margin-bottom: 30px;
+  background-color: rosybrown;
+}
+
+.cat-info {
+  width: 500px;
+}
+
 .hidden {
   display: none;
 }
@@ -19,9 +32,9 @@
   background: #ff3d00;
   animation: 5s lineGrow linear infinite;
 }
-/* 
+
 @keyframes lineGrow {
   to {
     width: 100%;
   }
-} */
+}

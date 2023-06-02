@@ -37,9 +37,7 @@ function createCatsMarkup(data) {
 
 function onError(err) {
   loader.style.display = 'none';
-  Notiflix.Notify.failure(
-    'Oops! Something went wrong! Try reloading the page!'
-  );
+  Notiflix.Notify.failure(error.textContent);
   console.log('not found');
 }
 // ----------------------------------------------------------
@@ -62,10 +60,10 @@ function createCatMarkup(cats) {
   return cats
     .map(cat => {
       return `
-        <img src="${cat.url}" width="360" />
-            <h1>${cat.breeds[0].name}</h1>
-            <p>${cat.breeds[0].description}</p>
-            <p><b>Temperament: </b>${cat.breeds[0].temperament}</p>
+        <img class="img" src="${cat.url}" width="360" />
+            <h1 class="title">${cat.breeds[0].name}</h1>
+            <p class="desc">${cat.breeds[0].description}</p>
+            <p class="temper"><b>Temperament: </b>${cat.breeds[0].temperament}</p>
         `;
     })
     .join('');
