@@ -1,5 +1,6 @@
 import Notiflix from 'notiflix';
 import SlimSelect from 'slim-select';
+
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
 
 const refs = {
@@ -19,6 +20,7 @@ fetchBreeds()
   .catch(onError);
 
 function fillSelect(breeds) {
+  select.innerHTML = '';
   loader.style.display = 'none';
   const catsMarkup = createCatsMarkup(breeds);
   select.insertAdjacentHTML('beforeend', catsMarkup);
@@ -41,6 +43,7 @@ function onError(err) {
 }
 // ----------------------------------------------------------
 select.addEventListener('change', e => {
+  catInfo.innerHTML = '';
   loader.style.display = 'block';
   const breedId = select.value;
 
