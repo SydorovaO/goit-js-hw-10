@@ -1,53 +1,70 @@
+import Notiflix from 'notiflix';
+import SlimSelect from 'slim-select';
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
+
 const refs = {
   select: document.querySelector('.breed-select'),
   catInfo: document.querySelector('.cat-info'),
+  loader: document.querySelector('.loader'),
+  error: document.querySelector('.error'),
 };
-const { select, catInfo } = refs;
+const { select, catInfo, loader, error } = refs;
 
-fetchBreeds().then(fillSelectData).catch(onError);
+select.style.display = 'none';
+loader.style.display = 'block';
+error.style.display = 'none';
 
-function fillSelectData(data) {
-  data.forEach(breed => {
-    const option = document.createElement('option');
-    option.value = breed.id;
-    option.textContent = breed.name;
-    select.appendChild(option);
-  });
+fetchBreeds()
+  .then(breeds => fillSelect(breeds))
+  .catch(onError);
 
-  return data;
+function fillSelect(breeds) {
+  loader.style.display = 'none';
+  const catsMarkup = createCatsMarkup(breeds);
+  select.insertAdjacentHTML('beforeend', catsMarkup);
+  select.style.display = 'block';
+}
+
+function createCatsMarkup(data) {
+  return data
+    .map(({ id, name }) => {
+      return ` <option value="${id}">${name}</option>`;
+    })
+    .join('');
 }
 
 function onError(err) {
+  Notiflix.Notify.failure(
+    'Oops! Something went wrong! Try reloading the page!'
+  );
   console.log('not found');
 }
+// ----------------------------------------------------------
+select.addEventListener('change', e => {
+  loader.style.display = 'block';
+  const breedId = select.value;
 
-select.addEventListener('change', () => {
-  //   const breedId = select.value;
-  //   console.log(breedId);
-  fetchCatByBreed().then(renderCatCard).catch(onError);
+  console.log(breedId);
+  fetchCatByBreed(breedId)
+    .then(cats => {
+      console.log(cats);
+      loader.style.display = 'none';
+
+      const catMarkup = createCatMarkup(cats);
+      catInfo.insertAdjacentHTML('beforeend', catMarkup);
+    })
+    .catch(onError);
 });
 
-function renderCatCard({ id, name }) {
-  console.log(name);
+function createCatMarkup(cats) {
+  return cats
+    .map(cat => {
+      return `
+      <img src="${cat.url}" width="360" />
+          <h1>${cat.breeds[0].name}</h1>
+          <p>${cat.breeds[0].description}</p>
+          <p><b>Temperament: </b>${cat.breeds[0].temperament}</p>
+      `;
+    })
+    .join('');
 }
-
-// function addCatDesc(catData) {
-//   catInfo.innerHTML = '';
-
-//   const catImage = document.createElement('img');
-//   catImage.src = catData.url;
-//   catInfo.appendChild(catImage);
-
-//   const breedName = document.createElement('p');
-//   breedName.textContent = `Breed: ${catData.breeds[0].name}`;
-//   catInfo.appendChild(breedName);
-
-//   const description = document.createElement('p');
-//   description.textContent = `Description: ${catData.breeds[0].description}`;
-//   catInfo.appendChild(description);
-
-//   const temperament = document.createElement('p');
-//   temperament.textContent = `Temperament: ${catData.breeds[0].temperament}`;
-//   catInfo.appendChild(temperament);
-// }
