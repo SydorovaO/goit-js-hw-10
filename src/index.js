@@ -10,9 +10,9 @@ const refs = {
 };
 const { select, catInfo, loader, error } = refs;
 
-select.style.display = 'none';
-loader.style.display = 'block';
-error.style.display = 'none';
+// select.style.display = 'none';
+// loader.style.display = 'block';
+// error.style.display = 'none';
 
 fetchBreeds()
   .then(breeds => fillSelect(breeds))
@@ -20,10 +20,10 @@ fetchBreeds()
 
 function fillSelect(breeds) {
   select.innerHTML = '';
-  loader.style.display = 'none';
+  //   loader.style.display = 'none';
   const catsMarkup = createCatsMarkup(breeds);
   select.insertAdjacentHTML('beforeend', catsMarkup);
-  select.style.display = 'block';
+  //   select.style.display = 'block';
 }
 
 function createCatsMarkup(data) {
@@ -43,14 +43,14 @@ function onError(err) {
 // ----------------------------------------------------------
 select.addEventListener('change', e => {
   catInfo.innerHTML = '';
-  loader.style.display = 'block';
+  //   loader.style.display = 'block';
   const breedId = select.value;
 
   console.log(breedId);
   fetchCatByBreed(breedId)
     .then(cats => {
       console.log(cats);
-      loader.style.display = 'none';
+      //   loader.style.display = 'none';
 
       const catMarkup = createCatMarkup(cats);
       catInfo.insertAdjacentHTML('beforeend', catMarkup);
