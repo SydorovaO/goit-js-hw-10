@@ -1,5 +1,4 @@
 import { fetchBreeds, fetchCatByBreed } from './js/cat-api';
-
 import Notiflix from 'notiflix';
 
 const refs = {
@@ -10,12 +9,9 @@ const refs = {
 };
 const { select, catInfo, loader, error } = refs;
 
-const slimSelect = new SlimSelect({
-  select: '.breed-select',
-});
-
-// select.style.display = 'none';
+select.classList.add('hidden');
 error.classList.add('hidden');
+loader.style.display = 'block';
 
 fetchBreeds()
   .then(breeds => fillSelect(breeds))
@@ -26,27 +22,12 @@ function fillSelect(breeds) {
     text: name,
     value: id,
   }));
-
+  const slimSelect = new SlimSelect({
+    select: select,
+  });
   slimSelect.setData(options);
-  catInfo.classList.add('hidden');
+  loader.style.display = 'none';
 }
-
-// function fillSelect(breeds) {
-//   select.innerHTML = '';
-
-//   loader.style.display = 'none';
-//   const catsMarkup = createCatsMarkup(breeds);
-//   select.insertAdjacentHTML('beforeend', catsMarkup);
-
-//   // select.style.display = 'block';
-// }
-// function createCatsMarkup(data) {
-//   return data
-//     .map(({ id, name }) => {
-//       return ` <option value="${id}">${name}</option>`;
-//     })
-//     .join('');
-// }
 
 function onError(err) {
   loader.style.display = 'none';
@@ -70,7 +51,6 @@ select.addEventListener('change', e => {
 
       const catMarkup = createCatMarkup(cats);
       catInfo.insertAdjacentHTML('beforeend', catMarkup);
-      catInfo.classList.remove('hidden');
     })
     .catch(onError);
 });
@@ -80,10 +60,13 @@ function createCatMarkup(cats) {
     .map(cat => {
       return `
         <img class="img" src="${cat.url}" width="360" />
+        <div class="cat-box">
             <h1 class="title">${cat.breeds[0].name}</h1>
             <p class="desc">${cat.breeds[0].description}</p>
             <p class="temper"><b>Temperament: </b>${cat.breeds[0].temperament}</p>
+            </div>
         `;
     })
     .join('');
 }
+// лллллллллллллллллллллллллллллллллллллллллллллллллллллллл

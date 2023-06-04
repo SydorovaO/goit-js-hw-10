@@ -1,20 +1,13 @@
-/* .breed-select {
-  width: 200px;
-  height: 30px;
-  text-align: center;
-  border: 2px solid black;
-  font-size: 16px;
-  margin-bottom: 30px;
-  background-color: rosybrown;
-}
-
 .cat-info {
-  width: 500px;
+  display: flex;
 }
-.title {np
+.img {
+  margin-right: 20px;
+}
+.title {
   color: rosybrown;
   -webkit-text-stroke: 1px black;
-} */
+}
 .hidden {
   display: none;
 }
