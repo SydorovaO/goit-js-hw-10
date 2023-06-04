@@ -1,6 +1,9 @@
 .cat-info {
   display: flex;
 }
+.cat-box {
+  width: 500px;
+}
 .img {
   margin-right: 20px;
 }

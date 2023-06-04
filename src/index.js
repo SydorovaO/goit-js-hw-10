@@ -32,8 +32,8 @@ function fillSelect(breeds) {
 function onError(err) {
   loader.style.display = 'none';
   Notiflix.Notify.failure(error.textContent);
-  console.log('not found');
 }
+
 // ----------------------------------------------------------
 let isFirstLoade = true;
 select.addEventListener('change', e => {
@@ -42,7 +42,6 @@ select.addEventListener('change', e => {
   }
   catInfo.innerHTML = '';
   loader.style.display = 'block';
-
   const breedId = select.value;
 
   fetchCatByBreed(breedId)
