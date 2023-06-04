@@ -1,5 +1,5 @@
 import { fetchBreeds, fetchCatByBreed } from './js/cat-api';
-import SlimSelect from 'slim-select';
+
 import Notiflix from 'notiflix';
 
 const refs = {
@@ -10,7 +10,11 @@ const refs = {
 };
 const { select, catInfo, loader, error } = refs;
 
-select.style.display = 'none';
+const slimSelect = new SlimSelect({
+  select: '.breed-select',
+});
+
+// select.style.display = 'none';
 error.classList.add('hidden');
 
 fetchBreeds()
@@ -18,22 +22,31 @@ fetchBreeds()
   .catch(onError);
 
 function fillSelect(breeds) {
-  select.innerHTML = '';
+  const options = breeds.map(({ id, name }) => ({
+    text: name,
+    value: id,
+  }));
 
-  loader.style.display = 'none';
-  const catsMarkup = createCatsMarkup(breeds);
-  select.insertAdjacentHTML('beforeend', catsMarkup);
-
-  select.style.display = 'block';
+  slimSelect.setData(options);
+  catInfo.classList.add('hidden');
 }
 
-function createCatsMarkup(data) {
-  return data
-    .map(({ id, name }) => {
-      return ` <option value="${id}">${name}</option>`;
-    })
-    .join('');
-}
+// function fillSelect(breeds) {
+//   select.innerHTML = '';
+
+//   loader.style.display = 'none';
+//   const catsMarkup = createCatsMarkup(breeds);
+//   select.insertAdjacentHTML('beforeend', catsMarkup);
+
+//   // select.style.display = 'block';
+// }
+// function createCatsMarkup(data) {
+//   return data
+//     .map(({ id, name }) => {
+//       return ` <option value="${id}">${name}</option>`;
+//     })
+//     .join('');
+// }
 
 function onError(err) {
   loader.style.display = 'none';
@@ -44,6 +57,7 @@ function onError(err) {
 select.addEventListener('change', e => {
   catInfo.innerHTML = '';
   loader.style.display = 'block';
+
   const breedId = select.value;
 
   fetchCatByBreed(breedId)
@@ -52,6 +66,7 @@ select.addEventListener('change', e => {
 
       const catMarkup = createCatMarkup(cats);
       catInfo.insertAdjacentHTML('beforeend', catMarkup);
+      catInfo.classList.remove('hidden');
     })
     .catch(onError);
 });
