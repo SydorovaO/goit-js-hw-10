@@ -54,7 +54,11 @@ function onError(err) {
   console.log('not found');
 }
 // ----------------------------------------------------------
+let isFirstLoade = true;
 select.addEventListener('change', e => {
+  if (isFirstLoade) {
+    return (isFirstLoade = false);
+  }
   catInfo.innerHTML = '';
   loader.style.display = 'block';
 
